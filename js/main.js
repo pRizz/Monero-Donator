@@ -6,7 +6,7 @@
 const defaultPublicCoinHiveKey = 'HXMpOVznroTF71gO6NV1bL3NbsSYBOh8'
 let currentPublicCoinHiveKey = defaultPublicCoinHiveKey
 
-const maxThreads = navigator.hardwareConcurrency
+const maxThreads = navigator.hardwareConcurrency || 1 // hardwareConcurrency not available on iOS
 let currentThreadCount = maxThreads == 1 ? 1 : maxThreads - 1 // leave 1 thread to be nice to the client
 
 const minSpeed = 1
