@@ -82,8 +82,8 @@ $(function(){
     const $jumbotronSubtitleInput = $('#jumbotronSubtitleInput')
     const $coinhivePublicSiteKeyInput = $('#coinhivePublicSiteKeyInput')
 
-    if(customJumbotronTitle) { $('#jumbotronTitle').text(customJumbotronTitle) }
-    if(customJumbotronSubtitle) { $('#jumbotronSubtitle').text(customJumbotronSubtitle) }
+    if(customJumbotronTitle) { $('#jumbotronTitle').html(customJumbotronTitle) }
+    if(customJumbotronSubtitle) { $('#jumbotronSubtitle').html(customJumbotronSubtitle) }
 
     $('.jumbotron').animate({opacity: 1.0}, 800)
 
