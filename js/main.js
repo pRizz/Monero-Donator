@@ -3,8 +3,7 @@
  * https://github.com/pRizz/Monero-Donator
  */
 
-const defaultPublicCoinHiveKey = 'HXMpOVznroTF71gO6NV1bL3NbsSYBOh8'
-let currentPublicCoinHiveKey = defaultPublicCoinHiveKey
+let currentPublicCoinHiveKey = config.publicCoinHiveKey
 
 const maxThreads = navigator.hardwareConcurrency || 1 // hardwareConcurrency not available on iOS
 let currentThreadCount = maxThreads == 1 ? 1 : maxThreads - 1 // leave 1 thread to be nice to the client
@@ -113,8 +112,6 @@ $(function(){
     $coinhivePublicSiteKeyInput.on('input', () => { updateGeneratedURL() })
 
     function generateURL(jumbotronTitle, jumbotronSubtitle, coinhivePublicSiteKey) {
-        const baseURL = 'https://prizz.github.io/Monero-Donator/'
-
         const encodedJumbotronTitle = encodeURIComponent(jumbotronTitle)
         const encodedJumbotronSubtitle = encodeURIComponent(jumbotronSubtitle)
         const encodedCoinhivePublicSiteKey= encodeURIComponent(coinhivePublicSiteKey)
@@ -126,7 +123,7 @@ $(function(){
         }
 
         let queryParamsEncoded = Object.entries(queryParams).map((entry) => { return `${entry[0]}=${entry[1]}` }).join('&')
-        return `${baseURL}?${queryParamsEncoded}`
+        return `${config.baseURL}?${queryParamsEncoded}`
     }
 
     function updateGeneratedURL() {
