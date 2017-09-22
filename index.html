@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="author" content="Peter Ryszkiewicz">
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+    <title>Monero Donator</title>
+
+    <script type="text/javascript" src="deps/jquery.min.js"></script>
+    <script type="text/javascript" src="deps/bootstrap.min.js"></script>
+    <script type="text/javascript" src="deps/angular.min.js"></script>
+    <script type="text/javascript" src="deps/coinhive.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" onclick="$('#settingsModal').modal('show')">Generate Donation Website</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" onclick="toggleNightMode()">Night Mode</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/pRizz/Monero-Donator">Source</a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://prizz.github.io/My-IOTA-Balance/">My IOTA Balance</a></li>
+                        <li><a href="https://prizz.github.io/iota-transaction-spammer-webapp/">IOTA Transaction Spammer</a></li>
+                        <li><a href="https://prizz.github.io/iota-seed-encryptor-decryptor/">IOTA Seed Encryptor/Decryptor</a></li>
+                        <li><a href="https://prizz.github.io/iota-buy-strategy/">IOTA Buy Strategy</a></li>
+                        <li><a href="https://prizz.github.io/Monero-Donator/">Monero Donator</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Monero Donator <img class="logo" src="moneroLogo.png"></h3>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; background-color: #f0ad4e;"></div>
+    </div>
+
+    <div class="jumbotron" style="opacity: 0;">
+        <h1 id="jumbotronTitle" class="display-3">Thank you for your support! You are helping me mine Monero just by visiting this website. You can generate your own donation website with the link at the top or <a href="javascript:void(0)" onclick="$('#settingsModal').modal('show')">here</a>!</h1>
+        <h2 id="jumbotronSubtitle" class="display-3">- <a href="https://github.com/pRizz">pRizz</a></h2>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-md-3 text-center">
+            <h2 id="hashesPerSecond">0</h2>
+            <h4>Hashes per Second</h4>
+        </div>
+        <div class="col-md-3 text-center">
+            <h2 id="totalHashes">0</h2>
+            <h4>Total Hashes</h4>
+        </div>
+        <div class="col-md-3 text-center">
+            <h2 id="foundGoodHashes">0</h2>
+            <h4>Found Good Hashes</h4>
+        </div>
+        <div class="col-md-3 text-center">
+            <h2 id="acceptedGoodHashes">0</h2>
+            <h4>Hashes Accepted by the Pool</h4>
+        </div>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-md-offset-3 col-md-3 text-center">
+            <h2 id="goodHashRate">0</h2>
+            <h4>Good hash rate (good hashes/total hashes)</h4>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 id="timeSpentMining">0</h2>
+            <h4>Time Spent Mining</h4>
+        </div>
+    </div>
+
+    <div class="row marketing">
+        <div class="col-md-offset-2 col-md-4 text-center">
+            <h2 id="threadCount">
+                0
+            </h2>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" onclick="incrementThreadCount(-1)">-1</button>
+                <button type="button" class="btn btn-secondary" onclick="incrementThreadCount(1)">+1</button>
+            </div>
+            <h4>Threads</h4>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 id="speedCount">
+                0
+            </h2>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" onclick="incrementSpeed(-10)">-10</button>
+                <button type="button" class="btn btn-secondary" onclick="incrementSpeed(-1)">-1</button>
+                <button type="button" class="btn btn-secondary" onclick="incrementSpeed(1)">+1</button>
+                <button type="button" class="btn btn-secondary" onclick="incrementSpeed(10)">+10</button>
+            </div>
+            <h4>Speed (%)</h4>
+        </div>
+    </div>
+
+
+    <div class="row marketing text-center">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>How does this work?</h1>
+            <h2>
+                This webapp utilizes the <a href="https://coin-hive.com/">coinhive</a> library to mine Monero with CPU power, as part of a mining pool.
+            </h2>
+        </div>
+    </div>
+
+    <div class="row marketing text-center">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>About the Author</h1>
+            <h2>
+                This project was originally created by Peter Ryszkiewicz (<a href="https://github.com/pRizz">pRizz@GitHub</a>), software engineer in Chicago, IL.
+            </h2>
+        </div>
+    </div>
+
+    <div class="row marketing text-center">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>About the Project</h1>
+            <h2>
+                This project is hosted on GitHub at <a href="https://github.com/pRizz/Monero-Donator">https://github.com/pRizz/Monero-Donator</a> under the MIT license.
+            </h2>
+        </div>
+    </div>
+    <div class="row marketing text-center">
+        <div class="col-md-8 col-md-offset-2">
+            <pre>
+MIT License
+
+Copyright (c) 2017 Peter Ryszkiewicz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+            </pre>
+        </div>
+    </div>
+    <footer class="footer">
+        <p><a href="https://github.com/pRizz/Monero-Donator">Fork this on GitHub!</a></p>
+        <p><a href="https://github.com/pRizz/Monero-Donator/releases">Download this webapp</a>
+        </p>
+        <p>
+            If you want to support projects like this one, please consider donating:
+        </p>
+        <div>IOTA: <code>ARDPDHLZPQZRDBPKTZBIK9OFKCJMGCHFQJTQEXL9KRIVSHNRGHJCEOCMRFXGJMQXDVGNFTTS9GUIOJXXW9RONFYJKW</code></div>
+        <div>Monero: <code>49RzM7gNHkpbhBGXQHnfnNbbvS39EG2gzLEjdxtDfNtUakYBqSg6m8zWJ69PRbBHgG61HaxnXwhyPicBbWyzxCNUDeCVgFt</code></div>
+        <p>© Peter Ryszkiewicz 2017</p>
+    </footer>
+
+    <div class="modal fade" id="settingsModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Generate Donation Website</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>
+                        Jumbotron Title (optional)
+                    </h3>
+                    <input id="jumbotronTitleInput" class="form-control" type="text" placeholder="Jumbotron Title">
+                    <h3>
+                        Jumbotron Subtitle (optional)
+                    </h3>
+                    <input id="jumbotronSubtitleInput" class="form-control" type="text" placeholder="Jumbotron Subtitle">
+                    <h3>
+                        Coin Hive Public Site Key (looks like <code>HXMpOVznroTF71gO6NV1bL3NbsSYBOh8</code>)
+                    </h3>
+                    <div>
+                        Don't have a public site key? <a href="https://coin-hive.com/account/signup">Register an account at coinhive!</a> Then, copy and paste your key at: Settings → Sites & API Keys
+                    </div>
+                    <input id="coinhivePublicSiteKeyInput" class="form-control" type="text" placeholder="Coin Hive Public Site Key">
+                    <h3>
+                        Generated Website:
+                    </h3>
+                    <h4>
+                        <a id="generatedWebsiteLink" href="" style="word-wrap: break-word"></a>
+                    </h4>
+                    <h5>Right click and copy the address above</h5>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>

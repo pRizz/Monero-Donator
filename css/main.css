@@ -1,0 +1,43 @@
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn-secondary:hover {
+    color: #292b2c;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.btn-secondary:focus, .btn-secondary.focus {
+    -webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
+    box-shadow: 0 0 0 2px rgba(204, 204, 204, 0.5);
+}
+
+.btn-secondary.disabled, .btn-secondary:disabled {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn-secondary:active, .btn-secondary.active,
+.show > .btn-secondary.dropdown-toggle {
+    color: #292b2c;
+    background-color: #e6e6e6;
+    background-image: none;
+    border-color: #adadad;
+}
+
+.night-mode {
+    color: #888;
+    background-color: black;
+}
+
+body {
+    color: #4a4a4a;
+}
