@@ -65,7 +65,7 @@ function incrementSpeed(byValue) {
 }
 
 function setSpeedText() {
-    $('#speedCount').text(currentSpeed)
+    $('#speedCount').text(`${currentSpeed}%`)
 }
 
 function toggleNightMode() {
