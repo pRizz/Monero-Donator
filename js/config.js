@@ -5,5 +5,5 @@
 
 const config = {
     publicCoinHiveKey: 'HXMpOVznroTF71gO6NV1bL3NbsSYBOh8',
-    baseURL: 'https://prizz.github.io/Monero-Donator/'
+    baseURL: 'https://prizziota.com/Monero-Donator/index.html'
 }
